@@ -1,55 +1,52 @@
-<!--
-  ~ Dify Marketplace Template Icon
-  ~ Dify 市场模板图标
-  ~ Dify マーケットプレイステンプレートアイコン
-  ~
-  ~ WARNING / 警告 / 警告:
-  ~ 
-  ~ English: This is a TEMPLATE icon from Dify Marketplace only. You MUST NOT use this default icon in any way.
-  ~ Please replace it with your own custom icon before submit this plugin.
-  ~ 
-  ~ 中文: 这只是来自 Dify 市场的模板图标。您绝对不能以任何方式使用此默认图标。
-  ~ 请在提交此插件之前将其替换为您自己的自定义图标。
-  ~ 
-  ~ 日本語: これは Dify マーケットプレイスのテンプレートアイコンです。このデフォルトアイコンをいかなる方法でも使用してはいけません。
-  ~ このプラグインを提出する前に、独自のカスタムアイコンに置き換えてください。
-  ~ 
-  ~ DIFY_MARKETPLACE_TEMPLATE_ICON_DO_NOT_USE
-  -->
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_15253_95095)">
-<rect width="40" height="40" fill="#0033FF"/>
-<g filter="url(#filter0_n_15253_95095)">
-<rect width="40" height="40" fill="url(#paint0_linear_15253_95095)"/>
-</g>
-<path d="M28 10C28.5523 10 29 10.4477 29 11V16C29 16.5523 28.5523 17 28 17H23V30C23 30.5523 22.5523 31 22 31H18C17.4477 31 17 30.5523 17 30V17H11.5C10.9477 17 10.5 16.5523 10.5 16V13.618C10.5 13.2393 10.714 12.893 11.0528 12.7236L16.5 10H28ZM23 12H16.9721L12.5 14.2361V15H19V29H21V15H23V12ZM27 12H25V15H27V12Z" fill="white"/>
-</g>
-<defs>
-<filter id="filter0_n_15253_95095" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feTurbulence type="fractalNoise" baseFrequency="2 2" stitchTiles="stitch" numOctaves="3" result="noise" seed="8033" />
-<feComponentTransfer in="noise" result="coloredNoise1">
-<feFuncR type="linear" slope="2" intercept="-0.5" />
-<feFuncG type="linear" slope="2" intercept="-0.5" />
-<feFuncB type="linear" slope="2" intercept="-0.5" />
-<feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
-</feComponentTransfer>
-<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
-<feComponentTransfer in="noise1Clipped" result="color1">
-<feFuncA type="table" tableValues="0 0.06" />
-</feComponentTransfer>
-<feMerge result="effect1_noise_15253_95095">
-<feMergeNode in="shape" />
-<feMergeNode in="color1" />
-</feMerge>
-</filter>
-<linearGradient id="paint0_linear_15253_95095" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-<stop stop-color="#1443FF"/>
-<stop offset="1" stop-color="#0031F5"/>
-</linearGradient>
-<clipPath id="clip0_15253_95095">
-<rect width="40" height="40" fill="white"/>
-</clipPath>
-</defs>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+  <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #aecc3a;
+        stroke: #88a614;
+      }
+
+      .st0, .st1, .st2, .st3 {
+        stroke-miterlimit: 10;
+      }
+
+      .st0, .st2, .st3 {
+        stroke-width: 2px;
+      }
+
+      .st1 {
+        fill: #fced24;
+        stroke: #d6c700;
+        stroke-width: 3px;
+      }
+
+      .st4 {
+        display: none;
+      }
+
+      .st4, .st2 {
+        fill: #f58d21;
+      }
+
+      .st2 {
+        stroke: #cf6700;
+      }
+
+      .st3 {
+        fill: #009a94;
+        stroke: #00746e;
+      }
+    </style>
+  </defs>
+  <g>
+    <path class="st0" d="M37.27,1.29C19.43,1.29,4.91,16.62,4.91,35.46c0,15.87,10.31,29.25,24.23,33.07l7.8-9.3c-11.96-.19-21.64-10.78-21.64-23.77s9.86-23.77,21.97-23.77h47.56l8.71-10.39h-56.28Z"/>
+    <path class="st4" d="M57.95,45.03l-8.74-.42h-7.6c-6.01,0-10.91-4.11-10.91-9.15s4.89-9.15,10.91-9.15h17.41c8.6,0,16.75-3.8,22.27-10.39h-39.68c-11.74,0-21.3,8.77-21.3,19.54s8.97,18.99,20.21,19.52l16.35.42c6.01,0,10.91,4.11,10.91,9.15s-4.89,9.15-10.91,9.15h-17.51c-8.6,0-16.75,3.8-22.27,10.39h0,39.78c11.74,0,21.3-8.77,21.3-19.54s-8.97-18.99-20.21-19.52Z"/>
+    <path class="st3" d="M61.19,98.71c17.84,0,32.36-15.33,32.36-34.16,0-15.87-10.31-29.25-24.23-33.07l-7.8,9.3c11.96.19,21.64,10.78,21.64,23.77s-9.86,23.77-21.97,23.77H13.53l-8.71,10.39h56.38Z"/>
+  </g>
+  <g>
+    <path class="st1" d="M58.96,45.1l-7.69,10.15,5.6.14c6.01,0,10.91,4.11,10.91,9.15s-4.89,9.15-10.91,9.15h-17.51c-8.6,0-16.75,3.8-22.27,10.39h39.78c11.74,0,21.3-8.77,21.3-19.54,0-10.13-8.44-18.48-19.2-19.45Z"/>
+    <path class="st2" d="M41.6,15.91c-11.74,0-21.3,8.77-21.3,19.54,0,10.13,8.44,18.48,19.2,19.45l7.8-10.29h-5.71c-6.01,0-10.91-4.11-10.91-9.15s4.89-9.15,10.91-9.15h17.41c8.6,0,16.75-3.8,22.27-10.39h-39.68Z"/>
+  </g>
 </svg>
