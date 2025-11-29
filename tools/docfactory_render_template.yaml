@@ -1,0 +1,70 @@
+identity:
+  name: "docfactory_render_template"
+  author: "strategicamente"
+  label:
+    en_US: "DocFactory - Render template"
+    it_IT: "DocFactory - Render template"
+    pt_BR: "DocFactory - Renderizar template"
+    ja_JP: "DocFactory - Template rendering (JA)"
+  description:
+    en_US: "Render a Jinja2 template with JSON data and return only the rendered text."
+    it_IT: "Esegue il rendering di un template Jinja2 a partire da dati JSON restituendo solo il testo."
+    pt_BR: "Renderiza um template Jinja2 a partir de dados JSON e retorna apenas o texto final."
+    ja_JP: "Render a Jinja2 template with JSON data and return the text output. (JA)"
+  icon: "icon.svg"
+
+description:
+  human:
+    en_US: "Use this tool to transform structured JSON data into formatted documents using Jinja2."
+  llm: >
+    Render a Jinja2 template using the provided JSON data and optional engine options. This tool only
+    returns the rendered text; it does not interact with the Dify Knowledge Base.
+
+parameters:
+  - name: data
+    type: string
+    required: true
+    label:
+      en_US: "Data (JSON)"
+    human_description:
+      en_US: "JSON object/string used as the context when rendering the template."
+    llm_description: >
+      JSON data for the template context. Provide a valid JSON string or object.
+    form: llm
+
+  - name: template
+    type: string
+    required: true
+    label:
+      en_US: "Template"
+    human_description:
+      en_US: "Jinja2 template string. Supports custom filters format_currency and format_date."
+    llm_description: >
+      Template body written with Jinja2 syntax. You can use loops, conditionals, and the filters
+      format_currency / format_date.
+    form: llm
+
+  - name: template_engine_options
+    type: string
+    required: false
+    label:
+      en_US: "Template engine options (JSON)"
+    human_description:
+      en_US: "Optional JSON object with parameters like strict_variables, autoescape, trim_blocks, lstrip_blocks."
+    llm_description: >
+      Optional JSON object to tweak the Environment (e.g. {"strict_variables": true}).
+    form: llm
+
+extra:
+  python:
+    source: tools/docfactory_render_template.py
+
+output_schema:
+  type: object
+  properties:
+    rendered_text:
+      type: string
+      description: "Rendered document text."
+    error:
+      type: string
+      description: "Error message, if any."

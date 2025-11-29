@@ -1,0 +1,9 @@
+python -m venv .venv
+
+# Linux/Mac
+source .venv/bin/activate
+
+# Windows PowerShell
+ .venv\Scripts\Activate.ps1
+
+Compress-Archive -Path manifest.yaml, requirements.txt, provider, tools, _assets, README.md, main.py -DestinationPath docfactory-0.1.0.zip

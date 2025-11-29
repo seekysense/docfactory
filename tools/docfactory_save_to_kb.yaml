@@ -1,0 +1,122 @@
+identity:
+  name: "docfactory_save_to_kb"
+  author: "strategicamente"
+  label:
+    en_US: "DocFactory - Save to KB"
+    it_IT: "DocFactory - Salva in KB"
+    pt_BR: "DocFactory - Salvar na KB"
+    ja_JP: "DocFactory - Save to KB (JA)"
+  description:
+    en_US: "Persist rendered text into the Dify Knowledge Base with metadata handling."
+    it_IT: "Salva il testo renderizzato nella Knowledge Base di Dify applicando metadati."
+    pt_BR: "Salva o texto renderizado na Knowledge Base do Dify com metadados."
+    ja_JP: "Save rendered text into the Dify Knowledge Base with metadata support."
+  icon: "icon.svg"
+
+description:
+  human:
+    en_US: "Receive rendered text plus dataset/document info and handle creation/updating inside the Dify Knowledge Base via text endpoints."
+  llm: >
+    Save rendered text to the Dify Knowledge Base. Provide dataset/document identifiers, optional metadata,
+    and choose how documents should be created or updated using create-by-text / update_by_text APIs (no custom segments).
+
+parameters:
+  - name: rendered_text
+    type: string
+    required: true
+    label:
+      en_US: "Rendered text"
+    human_description:
+      en_US: "Text that will be stored in the Knowledge Base."
+    llm_description: >
+      Provide the text produced by the rendering step. Usually this comes from a previous tool execution.
+    form: llm
+
+  - name: data
+    type: string
+    required: false
+    label:
+      en_US: "Data context (JSON)"
+    human_description:
+      en_US: "Optional JSON used for auto-generating document names when none is provided."
+    llm_description: >
+      Optional JSON payload with the original data. Used only when the tool must auto-generate a document name.
+    form: llm
+
+  - name: dataset_id
+    type: string
+    required: false
+    label:
+      en_US: "Dataset ID"
+    human_description:
+      en_US: "Target dataset. Falls back to the provider's default_dataset_id."
+    llm_description: >
+      Dataset identifier where the document should be saved. If empty, the provider's default_dataset_id will be used.
+    form: llm
+
+  - name: document_id
+    type: string
+    required: false
+    label:
+      en_US: "Document ID"
+    human_description:
+      en_US: "Existing document ID to update."
+    llm_description: >
+      Optional Knowledge Base document identifier. If provided, the tool updates this document.
+    form: llm
+
+  - name: document_name
+    type: string
+    required: false
+    label:
+      en_US: "Document name"
+    human_description:
+      en_US: "Document name to search or create."
+    llm_description: >
+      Optional friendly name used to find or create a document when document_id is not provided.
+    form: llm
+
+  - name: metadata_json
+    type: string
+    required: false
+    label:
+      en_US: "Metadata (JSON)"
+    human_description:
+      en_US: "Optional metadata object merged with the default generated_by field."
+    llm_description: >
+      JSON object with additional metadata fields to store on the document.
+    form: llm
+
+  - name: upsert_mode
+    type: string
+    required: false
+    label:
+      en_US: "Upsert mode"
+    human_description:
+      en_US: "create_or_update (default), create_only or update_only."
+    llm_description: >
+      Controls whether to create, update, or do both depending on document existence.
+    form: llm
+
+extra:
+  python:
+    source: tools/docfactory_save_to_kb.py
+
+output_schema:
+  type: object
+  properties:
+    saved_to_kb:
+      type: boolean
+      description: "Whether the text was stored successfully."
+    dataset_id:
+      type: string
+      description: "Dataset used for persistence."
+    document_id:
+      type: string
+      description: "Document identifier in the Knowledge Base."
+    metadata_applied:
+      type: object
+      description: "Metadata that ended up on the document."
+    error:
+      type: string
+      description: "Error message, if any."

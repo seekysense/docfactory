@@ -1,0 +1,88 @@
+identity:
+  name: "docfactory_single_chunk"
+  author: "strategicamente"
+  label:
+    en_US: "DocFactory - Single chunk"
+    it_IT: "DocFactory - Chunk unico"
+    pt_BR: "DocFactory - Único chunk"
+    ja_JP: "DocFactory - Single chunk (JA)"
+  description:
+    en_US: "Replace all segments of a fully indexed document with a single segment."
+    it_IT: "Sostituisce tutti i segmenti di un documento indicizzato con un singolo segmento."
+    pt_BR: "Substitui todos os segmentos de um documento já indexado por um único segmento."
+    ja_JP: "Convert an indexed document into a single segment inside the KB."
+  icon: "icon.svg"
+
+description:
+  human:
+    en_US: "Requires existing KB credentials. It checks the document indexing status and, only if completed, deletes current segments and creates one segment with the provided text."
+  llm: >
+    Use this tool when you need to force an already-indexed Knowledge Base document into a single chunk.
+    The document must belong to a dataset, must have indexing_status == completed, and you must provide
+    the text that should remain in the document. On failure the tool returns an error in both JSON and
+    variable outputs so that workflows can branch.
+
+parameters:
+  - name: dataset_id
+    type: string
+    required: false
+    label:
+      en_US: "Dataset ID"
+    human_description:
+      en_US: "Dataset containing the document. Falls back to provider default_dataset_id."
+    llm_description: >
+      Dataset identifier. If omitted, the provider-level default_dataset_id will be used.
+    form: form
+
+  - name: document_id
+    type: string
+    required: true
+    label:
+      en_US: "Document ID"
+    human_description:
+      en_US: "Knowledge Base document to convert."
+    llm_description: >
+      Document identifier already existing inside the dataset.
+    form: llm
+
+  - name: rendered_text
+    type: string
+    required: true
+    label:
+      en_US: "Full text"
+    human_description:
+      en_US: "Text that will become the single chunk content."
+    llm_description: >
+      Provide the final text you want to store as the single KB segment.
+    form: llm
+
+  - name: data
+    type: string
+    required: false
+    label:
+      en_US: "Data context (JSON)"
+    human_description:
+      en_US: "Optional JSON context used only to extract keywords for the new segment."
+    llm_description: >
+      Optional JSON payload; keywords such as customer_code or year will be extracted for the new chunk.
+    form: llm
+
+extra:
+  python:
+    source: tools/docfactory_single_chunk.py
+
+output_schema:
+  type: object
+  properties:
+    dataset_id:
+      type: string
+      description: "Dataset identifier."
+    document_id:
+      type: string
+      description: "Document that was processed."
+    converted_to_single_chunk:
+      type: boolean
+      description: "True when the document was converted, False otherwise."
+    error:
+      type: string
+      description: "Error message if the operation failed."

@@ -1,0 +1,52 @@
+identity:
+  author: "seekysense"
+  name: "docfactory"
+  label:
+    en_US: "DocFactory"
+    zh_Hans: "DocFactory"
+    pt_BR: "DocFactory"
+    ja_JP: "DocFactory"
+  description:
+    en_US: "Render Jinja2 templates from JSON data and optionally save into Dify Knowledge Base."
+    zh_Hans: "使用 JSON 数据渲染 Jinja2 模板，并可选择保存到 Dify 知识库。"
+    pt_BR: "Renderiza templates Jinja2 a partir de dados JSON e opcionalmente salva na Knowledge Base do Dify."
+    ja_JP: "JSON データから Jinja2 テンプレートをレンダリングし、必要に応じて Dify ナレッジベースに保存します。"
+  icon: "icon.svg"
+
+credentials_for_provider:
+  dify_api_base_url:
+    type: text-input
+    required: false            # <--- NON obbligatorio
+    label:
+      en_US: "Dify API Base URL"
+    placeholder:
+      en_US: "e.g. http://api:5001/v1"
+    help:
+      en_US: "Base URL of your Dify API. Leave empty if you only need template rendering."
+  dify_api_key:
+    type: secret-input
+    required: false            # <--- NON obbligatorio
+    label:
+      en_US: "Dify API Key"
+    placeholder:
+      en_US: "Paste a valid Dify API key"
+    help:
+      en_US: "API key with permission to access Knowledge Base. Leave empty if you don't need to save documents."
+  default_dataset_id:
+    type: text-input
+    required: false
+    label:
+      en_US: "Default Dataset ID"
+    placeholder:
+      en_US: "Optional dataset id used when dataset_id parameter is not provided."
+    help:
+      en_US: "Optional. If set, used as fallback dataset for saving documents."
+
+tools:
+  - tools/docfactory_render_template.yaml
+  - tools/docfactory_save_to_kb.yaml
+  - tools/docfactory_single_chunk.yaml
+
+extra:
+  python:
+    source: provider/docfactory.py   # <--- collega il provider Python
