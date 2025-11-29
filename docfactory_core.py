@@ -439,7 +439,6 @@ class KnowledgeBaseDocumentCore:
         if not metadata:
             return None
 
-        # ---- 1) Legge le definizioni di metadata del dataset ----
         meta_def_response = self.client.request(
             "GET",
             f"/datasets/{dataset_id}/metadata",
@@ -457,7 +456,6 @@ class KnowledgeBaseDocumentCore:
 
         items = _extract_items(meta_def_response)
         if not isinstance(items, list):
-            # Non riesco a leggere le definizioni, evito di bloccare il salvataggio
             return metadata
 
         name_to_id: Dict[str, str] = {}
@@ -468,8 +466,6 @@ class KnowledgeBaseDocumentCore:
             meta_id = item.get("id")
             if name and meta_id:
                 name_to_id[name] = str(meta_id)
-
-        # ---- 2) Crea eventuali definizioni mancanti (type string di default) ----
         for key in metadata.keys():
             name = str(key).strip()
             if not name or name in name_to_id:
@@ -484,10 +480,8 @@ class KnowledgeBaseDocumentCore:
                     },
                 )
             except KnowledgeBaseError as exc:
-                # errori 5xx o senza status -> fatali
                 if exc.status_code is None or exc.status_code >= 500:
                     raise
-                # errori 4xx (es. conflitto) -> ignoro e poi rifaccio GET
                 continue
 
             if isinstance(create_resp, dict):
@@ -495,7 +489,6 @@ class KnowledgeBaseDocumentCore:
                 if new_id:
                     name_to_id[name] = str(new_id)
 
-        # ---- 3) Rilegge le definizioni per avere tutti gli id aggiornati ----
         meta_def_response = self.client.request(
             "GET",
             f"/datasets/{dataset_id}/metadata",
@@ -510,7 +503,6 @@ class KnowledgeBaseDocumentCore:
                 if name and meta_id:
                     name_to_id[name] = str(meta_id)
 
-        # ---- 4) Costruisce metadata_list nel formato accettato da /documents/metadata ----
         metadata_list: List[Dict[str, Any]] = []
         for key, value in metadata.items():
             name = str(key).strip()
@@ -530,7 +522,6 @@ class KnowledgeBaseDocumentCore:
         if not metadata_list:
             return metadata
 
-        # ---- 5) Applica i metadata al documento ----
         payload = {
             "operation_data": [
                 {
@@ -661,7 +652,6 @@ class KnowledgeBaseChunkCore:
         timeout_seconds: int = 60,
         poll_interval_seconds: int = 3,
     ) -> Dict[str, Any]:
-        # 1) aspetta che l’indicizzazione iniziale sia completata
         self._wait_for_completed(
             dataset_id=dataset_id,
             document_id=document_id,
@@ -669,17 +659,14 @@ class KnowledgeBaseChunkCore:
             poll_interval_seconds=poll_interval_seconds,
         )
 
-        # 2) normalizza il testo che vuoi come single chunk
         normalized_content = content if isinstance(content, str) else str(content)
 
-        # 3) aggiorna anche il "text" del documento
         self._update_document_text(
             dataset_id=dataset_id,
             document_id=document_id,
             rendered_text=normalized_content,
         )
 
-        # 4) aspetta di nuovo: l'update_by_text può riavviare l'indicizzazione
         self._wait_for_completed(
             dataset_id=dataset_id,
             document_id=document_id,
@@ -687,17 +674,14 @@ class KnowledgeBaseChunkCore:
             poll_interval_seconds=poll_interval_seconds,
         )
 
-        # 5) elimina i segmenti esistenti
         segment_ids = self._list_segments(dataset_id, document_id)
         for segment_id in segment_ids:
             self._delete_segment(dataset_id, document_id, segment_id)
 
-        # 6) crea il singolo segmento
         payload = {
             "segments": [
                 {
                     "content": normalized_content,
-                    # opzionale: per QA docs puoi anche aggiungere "answer": normalized_content
                     "keywords": keywords or [],
                 }
             ]
@@ -769,16 +753,13 @@ class KnowledgeBaseChunkCore:
         document_id: str,
         rendered_text: str,
     ) -> None:
-        # 1) garantisco che sia stringa
         text_value = rendered_text if isinstance(rendered_text, str) else str(rendered_text)
 
-        # 2) provo a recuperare il nome esistente del documento
         name_value: str = document_id  # fallback sicuro
         try:
             doc = self._get_document(dataset_id, document_id)
             raw = None
             if isinstance(doc, dict):
-                # alcune versioni restituiscono il documento sotto "data"
                 if isinstance(doc.get("data"), dict):
                     raw = doc["data"]
                 else:
@@ -789,7 +770,6 @@ class KnowledgeBaseChunkCore:
                 if isinstance(candidate, str) and candidate.strip():
                     name_value = candidate
         except KnowledgeBaseError:
-            # se il GET fallisce, usiamo comunque il fallback document_id
             pass
 
         payload = {

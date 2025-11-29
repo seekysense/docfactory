@@ -56,7 +56,7 @@ class DocfactoryRenderTool(Tool):
                 data_context,
                 engine_options or {},
             )
-        except Exception as exc:  # pragma: no cover - handled generically
+        except Exception as exc:  
             result["error"] = f"Template rendering failed: {exc}"
             yield from self._yield_error_messages(result)
             return
