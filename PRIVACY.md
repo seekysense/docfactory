@@ -1,7 +1,6 @@
-```markdown
 # Privacy Policy
 
-_Last updated: [DATE]_
+_Last updated: 11/26/2025_
 
 This Privacy Policy describes how the **Docfactory** plugin (“the Plugin”) processes data when used within your Dify instance.
 
@@ -114,4 +113,3 @@ Email: seeky@seekysense.com
 ---
 
 _This Privacy Policy is provided for informational purposes only and does not constitute legal advice. You should consult with your own legal counsel to ensure that your use and deployment of the Plugin comply with all applicable laws and regulations._
-```
